@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Pedidos de Uniformes</title>
+<meta name="theme-color" content="#3d5a6c"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="manifest" id="mf"><link rel="apple-touch-icon" id="ati">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f4f2ee;--card:#fffdfa;--tx:#2b2d33;--mu:#7a7d85;--ac:#3d5a6c;--bd:#e3dfd7;--dg:#b5524a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181d;--card:#1f2229;--tx:#e9e6df;--mu:#9a9da6;--ac:#8fb0c4;--bd:#2e323b;--dg:#d9776d}}
+:root[data-theme="dark"]{--bg:#16181d;--card:#1f2229;--tx:#e9e6df;--mu:#9a9da6;--ac:#8fb0c4;--bd:#2e323b;--dg:#d9776d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px system-ui,-apple-system,sans-serif}
+.w{max-width:680px;margin:0 auto;padding:14px 14px 110px}
+h1{font-size:20px;margin:4px 0 12px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;margin-bottom:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+.c,.u{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
+.mu{color:var(--mu);font-size:14px}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--ac);color:#fff;margin-left:6px}
+button,.btn{font:inherit;border:0;border-radius:10px;padding:10px 14px;background:var(--ac);color:#fff;cursor:pointer;display:inline-block}
+.g{background:transparent;color:var(--ac);border:1px solid var(--bd)}.d{background:transparent;color:var(--dg);border:1px solid var(--bd)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;justify-content:center;z-index:5}
+.uh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ph img{max-width:100%;max-height:220px;border-radius:10px;display:block;margin-bottom:8px}
+details{margin-bottom:8px}summary{color:var(--mu);font-size:14px;margin-bottom:6px}
+label{font-size:13px;color:var(--mu)}
+#ed,#adm{display:none}
+.brand{display:flex;align-items:center;gap:12px;background:var(--ac);background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 65%,#000));color:#fff;padding:14px;border-radius:16px;margin-bottom:12px;box-shadow:0 6px 18px #0002}
+.brand .mu{color:#ffffffcc}.brand .bn{font-size:19px;font-weight:700}.brand button{background:#ffffff33;color:#fff;margin-left:auto}
+#blg{height:46px;max-width:90px;object-fit:contain;background:#fff;border-radius:10px;padding:3px}
+.c{box-shadow:0 1px 3px #0000000d}.u{border-left:4px solid var(--ac)}.tag{font-weight:600}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac);border-color:transparent}
+.sw{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}.sw i{width:36px;height:36px;border-radius:50%;border:2px solid #8886;cursor:pointer;display:inline-block}.sw i.on{outline:3px solid var(--ac);outline-offset:2px}
+.bar{backdrop-filter:blur(8px)}
+html{-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+body{-webkit-user-select:none;user-select:none}input,textarea,select{-webkit-user-select:text;user-select:text}
+button:active,.c:active{transform:scale(.97);transition:transform .1s}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}.in{animation:in .22s ease-out}
+.brand{position:sticky;top:0;z-index:4;margin:-14px -14px 12px;border-radius:0 0 22px 22px;padding:16px}
+.tabs{padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));gap:0;justify-content:space-around}
+.tabs button{background:none;color:var(--mu);flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;padding:6px 2px;box-shadow:none;border-radius:12px}
+.tabs button.on{color:var(--ac);font-weight:700}.tabs i{font-style:normal;font-size:21px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.sc{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px;text-align:center}.sc b{display:block;font-size:22px;color:var(--ac)}.sc span{font-size:11px;color:var(--mu)}.cc{height:44px;padding:2px}
+</style></head><body>
+<div class="w">
+<div id="home">
+<div class="brand"><img id="blg" style="display:none"><div><div class="bn" id="bn">Pedidos de Uniformes</div><div class="mu">Pedidos y cotizaciones · v10</div></div></div><div id="msg" class="mu"></div>
+
+<div class="stats" id="st"></div>
+<div style="display:flex;gap:8px"><input id="q" placeholder="Buscar hospital o encargado…" oninput="drawHome()"><select id="fx" onchange="drawHome()" style="max-width:42%"><option value="">Todos</option><option>Pedido</option><option>Cotización</option></select></div>
+<div id="ol"></div>
+</div>
+<div id="adm"><h1>⚙ Administración</h1>
+<div class="c"><b>Mi negocio</b><label>Nombre del negocio</label><input id="tn"><label>WhatsApp (con código de país)</label><input id="wa" inputmode="tel"><label>Contacto / dirección (pie de los documentos)</label><textarea id="pie" rows="2"></textarea>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn g">🖼 Subir logo<input type="file" accept="image/*" id="tl" style="display:none"></label><button class="d" onclick="qlogo()">Quitar logo</button></div></div>
+<div class="c"><b>Colores</b><div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0"><button class="g" onclick="pre(0)">Elegante</button><button class="g" onclick="pre(1)">Noche</button><button class="g" onclick="pre(2)">Salvia</button><button class="g" onclick="pre(3)">Vino</button><button class="d" onclick="rc()">Restablecer</button></div>
+<label>Acento (botones y encabezado)</label><div class="sw" id="sw_ac"></div><label>Fondo (cambia todo el estilo)</label><div class="sw" id="sw_bg"></div><label>Tarjetas</label><div class="sw" id="sw_card"></div><label>Texto</label><div class="sw" id="sw_tx"></div><div id="wn" style="color:var(--dg);font-size:13px"></div></div>
+<div class="c"><b>Cotizaciones</b><div class="g2"><div><label>Símbolo de moneda</label><input id="mon" maxlength="4"></div><div><label>Validez (días)</label><input id="val" type="number"></div></div><label>Condiciones que aparecen en la cotización</label><textarea id="cond" rows="3"></textarea></div>
+<div class="c"><b>📲 Instalar como app</b><p class="mu" style="margin:6px 0">Agrégala a tu pantalla de inicio para abrirla a pantalla completa, con tu logo como ícono.</p><button onclick="inst()">Instalar app</button></div>
+<div class="c"><b>Respaldo de datos</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="g" onclick="bk()">💾 Respaldar</button><label class="btn g">📂 Restaurar<input type="file" accept=".json" id="rs" style="display:none"></label></div></div>
+</div>
+<div id="ed">
+<h1 id="et">Nuevo pedido</h1>
+<label>Hospital / Clínica *</label><input id="hospital">
+<label>Encargado del pedido</label><input id="encargado">
+<div class="g2"><div><label>Fecha del pedido</label><input id="fecha" type="date"></div><div><label>Fecha de entrega</label><input id="entrega" type="date"></div></div>
+<label>Tipo de documento</label><select id="tipo"><option>Pedido</option><option>Cotización</option></select>
+<label>Estado</label><select id="estado"><option>Cotizada</option><option>Aprobada</option><option>Pendiente</option><option>En producción</option><option>Listo</option><option>Entregado</option></select>
+<label>Notas generales</label><textarea id="notas" rows="2"></textarea>
+<div class="g2"><div><label>Anticipo ($)</label><input id="anticipo" type="number" inputmode="decimal"></div><div><label>Total del pedido</label><div id="tot" class="c" style="margin:0;padding:8px 10px"></div></div></div>
+<h1 style="margin-top:18px">Uniformes <span class="mu" id="cnt"></span></h1>
+<div id="ul"></div>
+<button class="g" onclick="addU()" style="width:100%">+ Agregar uniforme</button>
+<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button onclick="exportar('png')">🖼 Imagen</button><button onclick="exportar('pdf')">📄 PDF</button><button onclick="exportar('wa')" style="background:#4f8a6a">📲 WhatsApp</button><button class="g" onclick="csv()">⬇ CSV</button><button class="d" id="del" onclick="delO()">Borrar pedido</button></div>
+<div id="ex" class="c" style="display:none;margin-top:12px"><b>Exportar pedido (CSV)</b><textarea id="exta" rows="6" readonly style="margin-top:8px;font-size:12px"></textarea><div style="display:flex;gap:8px"><button onclick="cp()">📋 Copiar</button><button class="g" onclick="dl()">⬇ Descargar</button></div><div class="mu" id="exst" style="margin-top:6px"></div></div>
+</div>
+</div>
+<datalist id="tl2"><option>XS<option>S<option>M<option>L<option>XL<option>2XL<option>3XL</datalist>
+<div id="rep" style="position:absolute;left:-10000px;top:0;width:800px;background:#fff;color:#111;padding:24px;font:14px system-ui"></div>
+<div class="bar" id="ab" style="display:none"><button onclick="backA()">← Volver</button></div>
+<nav class="bar tabs" id="hb"><button class="on" onclick="goH()"><i>📋</i>Pedidos</button><button onclick="openO()"><i>📦</i>Nuevo pedido</button><button onclick="openO(null,'Cotización')"><i>💬</i>Cotización</button><button onclick="openA()"><i>⚙️</i>Ajustes</button></nav>
+<div class="bar" id="eb" style="display:none"><button class="g" onclick="back()">← Volver</button><button onclick="save()" id="sv">💾 Guardar pedido</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+window.onerror=(m,u,l)=>{let b=document.getElementById("errb");if(!b){b=document.createElement("div");b.id="errb";b.style.cssText="position:fixed;top:0;left:0;right:0;background:#c0392b;color:#fff;padding:8px;font-size:12px;z-index:99";document.body.appendChild(b)}b.textContent="Error: "+m+" (línea "+l+")"};
+const $=i=>document.getElementById(i);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const H=['hospital','encargado','fecha','entrega','estado','notas','anticipo','tipo'];
+const MED=[['m_busto','Busto'],['m_cintura','Cintura'],['m_cadera','Cadera'],['m_hombros','Hombros'],['m_manga','Manga'],['m_largo','Largo']];
+let col=null,photos={},orders=[],cur=null,ref=null,dirty=false;
+function setD(v){dirty=v;calcTot();$('sv').textContent=v?'💾 Guardar (sin guardar)':'💾 Guardar pedido'}
+function drawHome(){
+ stats();
+ const q=$('q').value.toLowerCase();
+ const fx=$('fx').value,r=orders.filter(o=>(!fx||(o.tipo||'Pedido')===fx)&&(!q||((o.hospital||'')+(o.encargado||'')).toLowerCase().includes(q)));
+ $('ol').innerHTML=r.length?r.map(o=>`<div class="c" onclick="openO('${o._id}')"><b>${o.tipo==='Cotización'?'💬 ':'📦 '}${esc(o.hospital)}</b><span class="tag" style="background:${EC[o.estado]||'#3d5a6c'}">${esc(o.estado)}</span><div class="mu">Encargado: ${esc(o.encargado)||'—'}</div><div class="mu">${(o.u||[]).length} uniformes ${o.entrega?'· entrega '+esc(o.entrega):''}</div></div>`).join(''):'<div class="mu" style="text-align:center;padding:36px 10px"><div style="font-size:48px">🧵</div>Aún no hay pedidos.<br>Toca <b>Nuevo pedido</b> abajo para empezar.</div>';
+}
+function openO(id,t){
+ const o=orders.find(x=>x._id===id);
+ cur=o?JSON.parse(JSON.stringify(o)):{estado:'Pendiente',fecha:new Date().toISOString().slice(0,10),u:[]};
+ ref=col?col.doc(id||undefined):null;
+ H.forEach(k=>$(k).value=cur[k]||'');if(!$('tipo').value)$('tipo').value='Pedido';if(t&&!o){$('tipo').value=t;$('estado').value='Cotizada'}
+ $('et').textContent=o?'Editar pedido':'Nuevo pedido';$('del').style.display=o?'':'none';
+ view('ed');
+ drawU();setD(false);scrollTo(0,0);
+}
+function back(){
+ if(dirty&&!confirm('Hay cambios sin guardar. ¿Salir?'))return;
+ view('home');
+}
+function drawU(){
+ $('cnt').textContent=cur.u.length+'/100';
+ $('ul').innerHTML=cur.u.map((u,i)=>`<div class="u" data-i="${i}"><div class="uh"><b>Uniforme #${i+1}</b><span><button class="g" data-act="cp">⧉ Copiar</button> <button class="d" data-act="rm">✕ Quitar</button></span></div>
+<input data-k="nombre" placeholder="Nombre de la persona" value="${esc(u.nombre)}">
+<div class="g2"><input list="tl2" data-k="camisa" placeholder="Talla camisa" value="${esc(u.camisa)}"><input list="tl2" data-k="pantalon" placeholder="Talla pantalón" value="${esc(u.pantalon)}"></div>
+<div class="g2"><input data-k="color" placeholder="Color" value="${esc(u.color)}"><input data-k="tela" placeholder="Tipo de tela" value="${esc(u.tela)}"></div>
+<input data-k="precio" type="number" inputmode="decimal" placeholder="Precio ($)" value="${esc(u.precio)}">
+<textarea data-k="ajustes" rows="2" placeholder="Especificaciones / ajustes en prenda">${esc(u.ajustes)}</textarea>
+<details><summary>Medidas opcionales (cm)</summary><div class="g2">${MED.map(m=>`<input data-k="${m[0]}" type="number" inputmode="decimal" step="0.5" placeholder="${m[1]}" value="${esc(u[m[0]])}">`).join('')}</div></details>
+<div class="ph">${u.foto?`<img src="${photos[u.foto]||''}" alt="Foto del uniforme">`:''}
+${true?`<label class="btn g" style="position:relative;overflow:hidden">📷 ${u.foto?'Cambiar':'Subir'} foto<input type="file" accept="image/*" data-act="ph" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;cursor:pointer"></label>${u.foto?' <button class="d" data-act="rf">Quitar foto</button>':''}`:'<div class="mu">Para subir fotos abre el enlace con la cuenta de Claude dueña de la app.</div>'}<div class="mu st" style="margin-top:6px"></div></div></div>`).join('');
+}
+function addU(){
+ if(cur.u.length>=100){alert('Máximo 100 uniformes por pedido');return}
+ cur.u.push({});drawU();setD(true);
+ const l=$('ul').lastElementChild;l.scrollIntoView({behavior:'smooth'});l.querySelector('input').focus();
+}
+$('ul').addEventListener('input',e=>{const t=e.target,k=t.dataset.k;if(!k)return;cur.u[+t.closest('.u').dataset.i][k]=t.value;setD(true)});
+$('ul').addEventListener('click',e=>{
+ const a=e.target.dataset.act;if(!a)return;const i=+e.target.closest('.u').dataset.i;
+ if(a==='rm'&&confirm('¿Quitar este uniforme?')){cur.u.splice(i,1);drawU();setD(true)}
+ if(a==='cp'&&cur.u.length<100){const c={...cur.u[i]};delete c.foto;c.nombre='';cur.u.splice(i+1,0,c);drawU();setD(true)}
+ if(a==='rf'){if(col)col.doc(cur.u[i].foto).delete().catch(()=>{});delete cur.u[i].foto;drawU();setD(true)}
+});
+$('ul').addEventListener('change',async e=>{
+ if(e.target.dataset.act!=='ph')return;
+ const card=e.target.closest('.u'),i=+card.dataset.i,f=e.target.files[0];if(!f)return;
+ const st=card.querySelector('.st');st.textContent='Subiendo foto…';
+ try{
+  const bm=await createImageBitmap(f);let m=900,q=0.65,d;
+  for(let t=0;t<6;t++){
+   const k=Math.min(1,m/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);
+   c.getContext('2d').drawImage(bm,0,0,c.width,c.height);d=c.toDataURL('image/jpeg',q);
+   if(d.length<230000)break;m*=0.8;q-=0.07;
+  }
+  if(d.length>=250000)throw new Error('foto muy pesada');
+  if(!col)throw new Error('sin almacenamiento');
+  const pid='f'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  await col.doc(pid).set({tipo:'foto',d});
+  photos[pid]=d;cur.u[i].foto=pid;drawU();setD(true);
+ }catch(x){st.textContent='No se pudo subir ('+((x&&(x.code||x.message))||'error')+'). Prueba con otra foto.'}
+});
+H.forEach(k=>$(k).addEventListener('input',()=>setD(true)));
+async function save(){
+ if(!ref){alert('Sin conexión al almacenamiento');return}
+ const o={u:cur.u};H.forEach(k=>o[k]=$(k).value.trim());
+ if(!o.hospital){alert('Escribe el hospital o clínica');return}
+ try{await ref.set(o);cur._id=ref.id;setD(false);$('et').textContent='Editar pedido';$('del').style.display='';alert('Pedido guardado ✅')}catch(e){alert('No se pudo guardar')}
+}
+async function delO(){
+ if(!ref||!confirm('¿Borrar todo el pedido?'))return;
+ try{await ref.delete();setD(false);back()}catch(e){alert('No se pudo borrar')}
+}
+let csvT='';
+function csv(){
+ const cols=['nombre','camisa','pantalon','color','tela','ajustes','precio',...MED.map(m=>m[0])];
+ const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ csvT=[['hospital','encargado',...cols,'foto'].join(',')].concat(cur.u.map(u=>[$('hospital').value,$('encargado').value,...cols.map(k=>u[k]),u.foto?'sí':''].map(q).join(','))).join('\n');
+ $('ex').style.display='block';$('exta').value=csvT;$('exst').textContent='';
+}
+function dl(){
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csvT],{type:'text/csv'}));
+ a.download='pedido.csv';document.body.appendChild(a);a.click();a.remove();$('exst').textContent='Descargando… revisa tus descargas ✅';
+}
+async function cp(){
+ const t=$('exta');t.select();
+ try{await navigator.clipboard.writeText(csvT);$('exst').textContent='Copiado ✅ Pégalo en Notas, WhatsApp o Excel.'}
+ catch(e){try{document.execCommand('copy');$('exst').textContent='Copiado ✅'}catch(x){$('exst').textContent='Mantén presionado el texto y elige Copiar.'}}
+}
+const WA='50379540523',EC={Pendiente:'#b0833a','En producción':'#4f7a96',Listo:'#7a6a99',Entregado:'#7c8088',Cotizada:'#a47a3a',Aprobada:'#4f8a6a'};
+let cfg={};try{cfg=JSON.parse(localStorage.getItem('cfg')||'{}')}catch(e){}
+const svC=()=>{try{localStorage.setItem('cfg',JSON.stringify(cfg))}catch(e){alert('Logo muy pesado')}};
+$('tn').value=cfg.nombre||'';$('tn').oninput=()=>{cfg.nombre=$('tn').value;svC();applyCfg()};
+$('tl').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const bm=await createImageBitmap(f),k=Math.min(1,300/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=bm.width*k;c.height=bm.height*k;c.getContext('2d').drawImage(bm,0,0,c.width,c.height);cfg.logo=c.toDataURL('image/png');svC();applyCfg();alert('Logo guardado ✅')}catch(x){alert('No se pudo leer el logo')}};
+const money=n=>(cfg.mon||'$')+(+n||0).toFixed(2);
+const sumP=()=>cur.u.reduce((a,u)=>a+(+u.precio||0),0);
+function calcTot(){if(!cur)return;const t=sumP(),an=+$('anticipo').value||0;$('tot').innerHTML=`<b>${money(t)}</b> · saldo <b>${money(t-an)}</b>`}
+function armarRep(){
+ const g=k=>esc($(k).value),t=sumP(),an=+$('anticipo').value||0,ac=cfg.ac||'#3d5a6c',cot=$('tipo').value==='Cotización';
+ const th='padding:6px;border:1px solid #ccc;text-align:left;font-size:12px;vertical-align:top';
+ const f0=$('fecha').value||new Date().toISOString().slice(0,10),vd=new Date(f0);vd.setDate(vd.getDate()+(+cfg.val||15));
+ $('rep').innerHTML=`<div style="display:flex;align-items:center;gap:14px;border-bottom:4px solid ${ac};padding-bottom:10px">${cfg.logo?`<img src="${cfg.logo}" style="height:64px">`:''}<div><div style="font-size:24px;font-weight:700">${esc(cfg.nombre||'Mi taller')}</div><div style="color:${ac};font-weight:700;letter-spacing:1px">${cot?'COTIZACIÓN':'PEDIDO DE UNIFORMES'}</div></div></div>
+<div style="margin:12px 0;line-height:1.6"><b>${cot?'Cliente':'Hospital / Clínica'}:</b> ${g('hospital')}<br><b>${cot?'Atención':'Encargado'}:</b> ${g('encargado')}<br><b>Fecha:</b> ${g('fecha')} &nbsp; ${cot?`<b>Válida hasta:</b> ${vd.toISOString().slice(0,10)}`:`<b>Entrega:</b> ${g('entrega')||'—'} &nbsp; <b>Estado:</b> ${g('estado')}`}</div>
+<table style="width:100%;border-collapse:collapse"><tr style="background:#eee">${['#','Nombre','Camisa','Pantalón','Color','Tela','Ajustes','Precio','Foto'].map(h=>`<th style="${th}">${h}</th>`).join('')}</tr>${cur.u.map((u,i)=>`<tr>${[i+1,u.nombre,u.camisa,u.pantalon,u.color,u.tela,u.ajustes,u.precio?money(u.precio):''].map(v=>`<td style="${th}">${esc(v)}</td>`).join('')}<td style="${th}">${u.foto&&photos[u.foto]?`<img src="${photos[u.foto]}" style="width:90px;border-radius:6px">`:''}</td></tr>`).join('')}</table>
+<div style="text-align:right;margin-top:12px;font-size:15px">${cot?`Total: <b style="font-size:18px">${money(t)}</b>`:`Total: <b>${money(t)}</b> · Anticipo: <b>${money(an)}</b> · Saldo: <b>${money(t-an)}</b>`}</div>
+${g('notas')?`<div style="margin-top:10px"><b>Notas:</b> ${g('notas')}</div>`:''}
+${cot?`<div style="margin-top:12px;padding:10px;background:#f6f6f6;border-radius:8px;white-space:pre-wrap;font-size:12px"><b>Condiciones</b>\n${esc(cfg.cond||DEFC)}</div>`:''}
+${cfg.pie?`<div style="margin-top:14px;border-top:1px solid #ccc;padding-top:8px;color:#555;font-size:12px;white-space:pre-wrap">${esc(cfg.pie)}</div>`:''}`;
+}
+function descargar(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();a.remove()}
+async function exportar(kind){
+ if(!$('hospital').value.trim()){alert('Escribe el hospital primero');return}
+ if(typeof html2canvas==='undefined'){alert('Necesitas internet para exportar');return}
+ try{
+  armarRep();const cv=await html2canvas($('rep'),{scale:2,backgroundColor:'#fff'}),name='pedido-'+$('hospital').value.trim().replace(/\s+/g,'-');
+  if(kind==='pdf'){const w=cv.width/2,h=cv.height/2,p=new window.jspdf.jsPDF({unit:'px',format:[w,h],orientation:w>h?'l':'p'});p.addImage(cv.toDataURL('image/jpeg',.92),'JPEG',0,0,w,h);p.save(name+'.pdf');return}
+  const b=await new Promise(r=>cv.toBlob(r,'image/png')),f=new File([b],name+'.png',{type:'image/png'});
+  if(kind==='wa'){
+   try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:'Pedido '+$('hospital').value});return}}catch(e){if(e.name==='AbortError')return}
+   descargar(b,name+'.png');window.open('https://wa.me/'+(cfg.wa||WA).replace(/\D/g,'')+'?text='+encodeURIComponent('Pedido '+$('hospital').value+' (adjunta la imagen descargada)'),'_blank');return}
+  descargar(b,name+'.png');
+ }catch(e){alert('No se pudo generar: '+(e.message||e))}
+}
+function bk(){descargar(new Blob([JSON.stringify({cfg,orders:orders.map(({_id,...r})=>({id:_id,...r})),photos})],{type:'application/json'}),'respaldo-pedidos.json')}
+$('rs').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(o.cfg){cfg=o.cfg;svC();applyCfg()}for(const r of o.orders||[]){const {id,...d}=r;await col.doc(id).set(d)}for(const k in o.photos||{})await col.doc(k).set({tipo:'foto',d:o.photos[k]});alert('Respaldo restaurado ✅')}catch(x){alert('Archivo no válido')}};
+const DEFC='Precios sujetos a cambio sin previo aviso. Se requiere un anticipo para iniciar la producción.';
+const PRE=[{bg:'#f4f2ee',card:'#fffdfa',tx:'#2b2d33',ac:'#3d5a6c',mu:'#7a7d85',bd:'#e3dfd7'},{bg:'#16181d',card:'#1f2229',tx:'#e9e6df',ac:'#8fb0c4',mu:'#9a9da6',bd:'#2e323b'},{bg:'#f2f4f0',card:'#fbfcfa',tx:'#2a3330',ac:'#5b7a6a',mu:'#7b857f',bd:'#dde2dc'},{bg:'#f6f1f1',card:'#fffcfc',tx:'#33262a',ac:'#7d3c4e',mu:'#86767a',bd:'#e6dadc'}];
+const CK=['bg','card','tx','ac','mu','bd'];
+function applyCfg(){
+ const r=document.documentElement.style;CK.forEach(k=>cfg[k]?r.setProperty('--'+k,cfg[k]):r.removeProperty('--'+k));
+ $('bn').textContent=cfg.nombre||'Pedidos de Uniformes';document.title=cfg.nombre||'Pedidos de Uniformes';
+ $('blg').style.display=cfg.logo?'block':'none';if(cfg.logo)$('blg').src=cfg.logo;
+ try{pwa()}catch(e){}
+}
+const cv=k=>{const v=cfg[k]||getComputedStyle(document.documentElement).getPropertyValue('--'+k).trim();return /^#[0-9a-f]{6}$/i.test(v)?v:'#000000'};
+const FD=[
+{bg:'#f1ebe0',card:'#fbf7ef',tx:'#3b3226',mu:'#8a7d69',bd:'#ddd2bf'},
+{bg:'#f2dde0',card:'#fbeef0',tx:'#4a2a33',mu:'#9a6f7a',bd:'#e3c4ca'},
+{bg:'#d9e6d8',card:'#eef5ed',tx:'#25382b',mu:'#6b836f',bd:'#c0d4be'},
+{bg:'#d6e5f2',card:'#ebf3fa',tx:'#1f3550',mu:'#657f9b',bd:'#bcd2e6'},
+{bg:'#e0d9f0',card:'#f1edf9',tx:'#33284f',mu:'#7f74a0',bd:'#cdc3e4'},
+{bg:'#f6dcc8',card:'#fcece0',tx:'#4a2f1c',mu:'#9a7558',bd:'#e7c6ac'},
+{bg:'#efe3b8',card:'#f8f1d4',tx:'#3d3412',mu:'#8b7f48',bd:'#dccf9c'},
+{bg:'#cfe6e4',card:'#e6f3f1',tx:'#17413f',mu:'#5f8987',bd:'#b4d3d0'},
+{bg:'#1b2a45',card:'#243656',tx:'#e3ebf8',mu:'#9aaccb',bd:'#34476b'},
+{bg:'#1c3329',card:'#254537',tx:'#e2f0e8',mu:'#98b8a6',bd:'#36594a'},
+{bg:'#3a1d29',card:'#4a2735',tx:'#f6e4ea',mu:'#c096a6',bd:'#603646'},
+{bg:'#2b2340',card:'#382f52',tx:'#ebe4f7',mu:'#a99cc8',bd:'#4d4270'},
+{bg:'#33261c',card:'#433226',tx:'#f3e9df',mu:'#bda58f',bd:'#5a4535'},
+{bg:'#22272e',card:'#2d333c',tx:'#e8ebef',mu:'#9aa3ae',bd:'#404853'}];
+const SW={ac:['#3d5a6c','#2f4858','#5b7a6a','#4a4e69','#7d3c4e','#6b4f6b','#8a6d4b','#9c6b5a','#5c6b73','#8fb0c4','#a8c3a0','#d4a373'],card:['#ffffff','#fdf3c8','#fde0cf','#fbd9e0','#d9f0e1','#d8e8f8','#e5dcf6','#cfe8e6','#2b3a55','#2f4a3d','#4a2f3d','#4a3a2c','#3a3552','#2c4a4f'],tx:['#2b2d33','#1f3a5f','#2f5d46','#6b2d3e','#5b3f2a','#4b3a6b','#1f5c61','#555b66','#f5f1e6','#dbe8f5','#dcefe2','#f5dfe4']};
+const lum=h=>{const c=[1,3,5].map(i=>{const v=parseInt(h.substr(i,2),16)/255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const ctr=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+function fillC(){
+ const cur_=k=>cv(k).toLowerCase();
+ $('sw_bg').innerHTML=FD.map((f,i)=>`<i data-i="${i}" style="background:${f.bg}" class="${cur_('bg')===f.bg?'on':''}"></i>`).join('');
+ ['ac','card','tx'].forEach(k=>$('sw_'+k).innerHTML=SW[k].map(c=>`<i data-c="${c}" style="background:${c}" class="${cur_(k)===c?'on':''}"></i>`).join(''));
+ $('wn').textContent=ctr(cv('tx'),cv('card'))<4.5?'⚠ El texto casi no se lee sobre las tarjetas. Cambia el color de texto o de tarjetas.':'';
+}
+$('adm').addEventListener('click',e=>{const t=e.target,p=t.parentElement;if(t.tagName!=='I'||!p.id.startsWith('sw_'))return;
+ if(p.id==='sw_bg')Object.assign(cfg,FD[+t.dataset.i]);else cfg[p.id.slice(3)]=t.dataset.c;
+ svC();applyCfg();fillC()});
+function pre(i){Object.assign(cfg,PRE[i]);svC();applyCfg();fillC()}
+function rc(){CK.forEach(k=>delete cfg[k]);svC();applyCfg();fillC()}
+function qlogo(){delete cfg.logo;svC();applyCfg()}
+[['wa','wa'],['pie','pie'],['mon','mon'],['val','val'],['cond','cond']].forEach(p=>$(p[0]).oninput=e=>{cfg[p[1]]=e.target.value;svC()});
+function openA(){
+ $('tn').value=cfg.nombre||'';$('wa').value=cfg.wa||WA;$('pie').value=cfg.pie||'';$('mon').value=cfg.mon||'$';$('val').value=cfg.val||15;$('cond').value=cfg.cond||DEFC;fillC();
+ view('adm');
+}
+function backA(){view('home')}
+$('tipo').addEventListener('change',()=>{const t=$('tipo').value,e=$('estado');if(t==='Cotización'&&e.value==='Pendiente')e.value='Cotizada';if(t==='Pedido'&&(e.value==='Cotizada'||e.value==='Aprobada'))e.value='Pendiente'});
+function view(v){['home','adm','ed'].forEach(x=>$(x).style.display=x===v?'block':'none');$('hb').style.display=v==='ed'?'none':'flex';$('eb').style.display=v==='ed'?'flex':'none';$('ab').style.display='none';setTab(v==='adm'?3:0);const e=$(v);e.classList.remove('in');void e.offsetWidth;e.classList.add('in');scrollTo(0,0)}
+function setTab(n){document.querySelectorAll('#hb button').forEach((b,i)=>b.classList.toggle('on',i===n))}
+function goH(){if($('ed').style.display==='block')back();else view('home')}
+function stats(){const p=orders.filter(o=>o.tipo!=='Cotización'&&o.estado!=='Entregado'),c=orders.filter(o=>o.tipo==='Cotización'&&o.estado!=='Aprobada'),u=p.reduce((a,o)=>a+(o.u||[]).length,0);$('st').innerHTML=[[p.length,'Pedidos activos'],[c.length,'Cotizaciones'],[u,'Uniformes en curso']].map(x=>`<div class="sc"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}
+let dp=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
+function inst(){if(dp){dp.prompt();dp=null}else alert('Toca los tres puntos ⋮ de Chrome y elige “Instalar aplicación” o “Agregar a pantalla de inicio”.')}
+function pwa(){
+ const c=document.createElement('canvas');c.width=c.height=512;const x=c.getContext('2d'),ac=cfg.ac||'#3d5a6c';
+ x.fillStyle=ac;x.fillRect(0,0,512,512);
+ const fin=()=>{const url=c.toDataURL('image/png');$('ati').href=url;
+  const m={name:cfg.nombre||'Pedidos de Uniformes',short_name:(cfg.nombre||'Pedidos').slice(0,12),start_url:location.href.split(/[?#]/)[0],display:'standalone',background_color:cfg.bg||'#f4f2ee',theme_color:ac,icons:[{src:url,sizes:'512x512',type:'image/png',purpose:'any'}]};
+  $('mf').href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));
+  document.querySelector('meta[name=theme-color]').content=ac};
+ if(cfg.logo){const i=new Image();i.onload=()=>{x.fillStyle='#fff';x.fillRect(0,0,512,512);const k=Math.min(380/i.width,380/i.height);x.drawImage(i,(512-i.width*k)/2,(512-i.height*k)/2,i.width*k,i.height*k);fin()};i.src=cfg.logo}
+ else{x.font='280px serif';x.textAlign='center';x.textBaseline='middle';x.fillText('🧵',256,280);fin()}
+}
+applyCfg();
+let IDB;const subs=[];
+const tx=m=>IDB.transaction('d',m).objectStore('d');
+async function emit(){
+ const docs=await new Promise(res=>{const out=[];tx('readonly').openCursor().onsuccess=e=>{const c=e.target.result;if(c){const id=c.key,v=c.value;out.push({id,data:()=>v});c.continue()}else res(out)}});
+ subs.forEach(f=>f({docs}));
+}
+const wr=(f)=>new Promise((res,rej)=>{const r=f(tx('readwrite'));r.onsuccess=()=>res();r.onerror=()=>rej(r.error)});
+(async()=>{
+ drawHome();
+ try{
+  IDB=await new Promise((res,rej)=>{const r=indexedDB.open('pedidos_uniformes',1);r.onupgradeneeded=()=>r.result.createObjectStore('d');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+  col={doc(id){id=id||('o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+   return{id,set:async o=>{await wr(t=>t.put(o,id));emit()},delete:async()=>{await wr(t=>t.delete(id));emit()}}},
+   onSnapshot(f){subs.push(f);emit()}};
+  col.onSnapshot(s=>{photos={};orders=s.docs.filter(d=>{const x=d.data();if(x.tipo==='foto'){photos[d.id]=x.d;return false}return true}).map(d=>({...d.data(),_id:d.id})).sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||''));drawHome()});
+  $('msg').textContent='Los datos se guardan en este navegador ✅';
+ }catch(e){$('msg').textContent='Tu navegador no permite guardar datos (¿modo privado?).'}
+})();
+</script></body></html>
